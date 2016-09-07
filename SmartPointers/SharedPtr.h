@@ -1,16 +1,13 @@
 #ifndef SMARTPOINTERS_SHAREDPTR_H
 #define SMARTPOINTERS_SHAREDPTR_H
 
-#include <cstdlib>
-#include <iostream>
-
 template<typename T>
 class SharedPtr {
 public:
-    explicit SharedPtr(T *t) : pointer(t), counter(new std::size_t(1)) {}
+    explicit SharedPtr(T *t) : pointer(t), counter(new int(1)) {}
 
     SharedPtr(const SharedPtr& other) {
-        if (this != &other) {
+        if (*this != other) {
             pointer = other.pointer;
             counter = other.counter;
             (*counter)++;
@@ -51,7 +48,7 @@ public:
         return (pointer != NULL);
     }
 
-    std::size_t count() {
+    int count() {
         return *counter;
     }
 
@@ -61,7 +58,7 @@ public:
     }
 private:
     T* pointer;
-    std::size_t* counter;
+    int* counter;
 };
 
 #endif //SMARTPOINTERS_SHAREDPTR_H

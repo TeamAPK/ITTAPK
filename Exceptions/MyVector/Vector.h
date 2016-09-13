@@ -6,6 +6,7 @@
 #define MYVECTOR_VECTOR_H
 
 #include <exception>
+#include <string.h>
 
 namespace my {
     template<typename T>
@@ -13,9 +14,19 @@ namespace my {
     public:
         explicit Vector(int capacity = 10) : capacity_(capacity), latest_(0), data_(new T[capacity]) {}
 
-        Vector(const Vector &other) {}
+        Vector(const Vector &other) {
+            if (this == &other) return;
+
+            capacity_ = other.capacity_;
+            latest_ = other.latest_;
+            data_ = new T[capacity_];
+            std::copy(other.data_, other.data_ + other.capacity_, data_);
+        }
 
         Vector &operator=(const Vector &other) {
+            std::cout << "assignment!!" << std::endl;
+            Vector tmp(other);
+            swap(tmp);
             return *this;
         }
 
@@ -38,20 +49,26 @@ namespace my {
             }
         }
 
-        void pop_back() {}
+        void pop_back() {
+            latest_--;
+        }
 
         void insert(const T &t, int n) {}
+
+        void swap(Vector &other) {
+            std::swap(data_, other.data_);
+        }
 
         T *begin() {
             return data_;
         }
 
         T *end() {
-            return data_+capacity_;
+            return data_ + latest_;
         }
 
         T &operator[](int i) {
-            return *(data_[i]);
+            return data_[i];
         }
 
     private:

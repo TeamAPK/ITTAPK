@@ -15,11 +15,19 @@ int main() {
     }
 
     my::Vector<char> stringVec;
-    for (int i = 65; i < 71; i++) {
+    for (int i = 65; i < 70; i++) {
         stringVec.push_back(i);
     }
 
     printVector(stringVec);
+
+    my::Vector<int> otherIntVec(20);
+    otherIntVec = vec;
+
+    std::cout << "Printing otherIntVec..." << std::endl;
+
+    printVector(otherIntVec);
+
     return 0;
 }
 

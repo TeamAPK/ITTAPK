@@ -20,6 +20,7 @@ namespace my {
             capacity_ = other.capacity_;
             latest_ = other.latest_;
             data_ = new T[capacity_];
+
             std::copy(other.data_, other.data_ + other.capacity_, data_);
         }
 

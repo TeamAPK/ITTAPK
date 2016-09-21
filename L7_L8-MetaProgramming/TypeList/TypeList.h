@@ -41,13 +41,17 @@ struct Contains<NullType, F> {
     static const bool value = false;
 };
 
-template<typename TL, int P>
-struct AtIndex {
-    typedef typename std::conditional<
-            P == 0,
-            typename TL::First,
-            typename AtIndex<typename TL::Rest, P - 1>::type
-    >::type type;
+template<typename TL, int R>
+struct AtIndex;
+
+template<typename F, typename R, int P>
+struct AtIndex<TypeList<F,R>, P> {
+    typedef typename AtIndex<R, P-1>::type type;
+};
+
+template<typename F, typename R>
+struct AtIndex<TypeList<F, R>, 0> {
+    typedef F type;
 };
 
 template<int P>

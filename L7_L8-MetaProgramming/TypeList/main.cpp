@@ -26,6 +26,9 @@ int main() {
             typename AtIndex<TL2, 2>::type, int>::value << std::endl;
 
     AtIndex<TL2, 5>::type myInt;
+
+    myInt = 2;
+
 /* Must be false */
     std::cout << "IsSame < typename AtIndex <TL , 2>:: type , char >:: value " << IsSame
             <typename AtIndex<TL2, 2>::type, char>::value << std::endl;

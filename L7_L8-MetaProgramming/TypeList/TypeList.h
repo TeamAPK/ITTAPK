@@ -41,14 +41,19 @@ struct Contains<NullType, F> {
     static const bool value = false;
 };
 
-template<typename TL, int P>
+template<typename TL, int P, bool IsNullType = false>
 struct AtIndex {
-    typedef typename AtIndex<typename TL::Rest, P - 1>::type type;
+    typedef typename AtIndex<typename TL::Rest, P - 1, IsSame<typename TL::Rest, NullType>::value>::type type;
 };
 
 template<typename TL>
-struct AtIndex<TL, 0> {
+struct AtIndex<TL, 0, false> {
     typedef typename TL::First type;
+};
+
+template<int P>
+struct AtIndex<NullType, P, true> {
+    typedef NullType type;
 };
 
 #endif //TYPELIST_TYPELIST_H

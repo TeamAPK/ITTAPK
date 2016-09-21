@@ -51,4 +51,19 @@ struct AtIndex<TL, 0> {
     typedef typename TL::First type;
 };
 
+template<typename TL>
+struct PrintIt {
+    static void print() {
+        std::cout << typeid(typename TL::First).name() << std::endl;
+        PrintIt<typename TL::Rest>::print();
+    }
+};
+
+template<>
+struct PrintIt<NullType> {
+    static void print() {
+        std::cout << "NullType" << std::endl;
+    }
+};
+
 #endif //TYPELIST_TYPELIST_H

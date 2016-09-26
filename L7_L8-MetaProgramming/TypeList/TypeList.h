@@ -6,6 +6,12 @@
 #include <typeinfo>
 
 struct NullType {
+    template<typename T>
+    NullType& operator=(const T&)
+    {
+        static_assert(false, "Null type cannot be assigned");
+        return *this;
+    }
 };
 
 template<typename L, typename R>
